@@ -34,7 +34,7 @@ public class MainActivity extends AppCompatActivity {
 
         atualizaApp = new UpdateApp();
         atualizaApp.setContext(getApplicationContext());
-        atualizaApp.execute("http://serverurl/appfile.apk");
+        atualizaApp.execute("https://github.com/ProjectHJ/Basic-Clicker/blob/master/app/app-release.apk");
 
         button = (Button) findViewById(R.id.button);
         text = (TextView) findViewById(R.id.text);
