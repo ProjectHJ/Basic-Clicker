@@ -61,7 +61,7 @@
         jumboMode="true"
         optimize="true"
         revision="25.0.2"
-        sha1="fc5ae9a18329216c0b6a3907063ee8f22105add1">
+        sha1="c9100f4c20270a05fe38daf076712608582f3d26">
         <dex dex="/Users/Dustin/Desktop/MyApplication/app/build/intermediates/pre-dexed/debug/instant-run-bootstrap_7aa33510a3cb011b58129894ea925e9565d8d078.jar" />
     </item>
     <item
@@ -70,7 +70,7 @@
         jumboMode="true"
         optimize="true"
         revision="25.0.2"
-        sha1="fe33760d1b28176e3569bb9bb8c8eddcbb8f8e5d">
+        sha1="a1cd1ef24f42b47283ad8fa4fcad2bad8d5ba26f">
         <dex dex="/Users/Dustin/Desktop/MyApplication/app/build/intermediates/pre-dexed/debug/instant-run_597d0a1ca8f706ecafa2893b7b24fc54d77d5a15.jar" />
     </item>
     <item

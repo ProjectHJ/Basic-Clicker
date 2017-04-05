@@ -5,33 +5,40 @@
     density="xxhdpi"
     format="8"
     plugin-version="2.2.3"
-    timestamp="596786159917199"
+    timestamp="604920928943944"
     token="-4365456845527876819"
-    verifier="FULL_BUILD_REQUESTED" >
+    verifier="COMPATIBLE" >
 
     <task
         name="javac"
-        duration="670" />
+        duration="134" />
     <task
         name="instant-run-dex"
-        duration="0" />
+        duration="18" />
     <task
         name="instant-run-transform"
-        duration="56" />
+        duration="19" />
     <task
         name="verifier"
-        duration="4" />
+        duration="18" />
 
     <artifact
-        location="/Users/Dustin/Desktop/MyApplication/app/build/outputs/apk/app-debug.apk"
-        type="MAIN" />
+        location="/Users/Dustin/Desktop/MyApplication/app/build/intermediates/reload-dex/debug/classes.dex"
+        type="RELOAD_DEX" />
 
     <build
-        timestamp="596786159917199"
+        timestamp="604882019973199"
         verifier="FULL_BUILD_REQUESTED" >
         <artifact
             location="/Users/Dustin/Desktop/MyApplication/app/build/outputs/apk/app-debug.apk"
             type="MAIN" />
+    </build>
+    <build
+        timestamp="604920928943944"
+        verifier="COMPATIBLE" >
+        <artifact
+            location="/Users/Dustin/Desktop/MyApplication/app/build/intermediates/reload-dex/debug/classes.dex"
+            type="RELOAD_DEX" />
     </build>
 
 </instant-run>

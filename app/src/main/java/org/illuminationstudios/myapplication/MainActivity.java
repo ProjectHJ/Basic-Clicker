@@ -1,13 +1,15 @@
 package org.illuminationstudios.myapplication;
 
-import android.app.TabActivity;
-import android.content.Intent;
+import android.Manifest;
+import android.content.pm.PackageManager;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.support.v7.app.WindowDecorActionBar;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.Button;
+import android.widget.ProgressBar;
 import android.widget.TabHost;
 import android.widget.TextView;
 
@@ -15,15 +17,25 @@ import com.kosalgeek.android.caching.FileCacher;
 
 import java.io.IOException;
 
+/**
+ * Created by Dustin on 4/2/17.
+ */
 public class MainActivity extends AppCompatActivity {
 
+    private static final int MY_PERMISSIONS_REQUEST_INSTALL_PACKAGES = 0x00000001;
     Button button;
     TextView text;
+    ProgressBar progress;
 
     double num;
     double total;
 
-    final FileCacher<Double> totalCache = new FileCacher<>(MainActivity.this, "values.ahe");
+    int max = 50;
+    int adder = 1;
+    int progressStatus = 0;
+
+    final FileCacher<Double> DoubleValueCache = new FileCacher<>(MainActivity.this, "ValueCacheDouble");
+    final FileCacher<Integer> IntegerValueCache = new FileCacher<>(MainActivity.this, "ValueCacheInt");
 
 
     @Override
@@ -33,26 +45,8 @@ public class MainActivity extends AppCompatActivity {
                 WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_main);
 
-        TabHost tabHost = (TabHost)findViewById(android.R.id.tabhost);
-
-        TabHost.TabSpec tab1 = tabHost.newTabSpec("Upgrades");
-        TabHost.TabSpec tab2 = tabHost.newTabSpec("(WIP)");
-        TabHost.TabSpec tab3 = tabHost.newTabSpec("(WIP)");
-
-        tab1.setIndicator("Tab1");
-        tab1.setContent(new Intent(this,Tab1Activity.class));
-
-        tab2.setIndicator("Tab2");
-        tab2.setContent(new Intent(this,Tab2Activity.class));
-
-        tab3.setIndicator("Tab3");
-        tab3.setContent(new Intent(this,Tab3Activity.class));
-
-        /** Add the tabs  to the TabHost to display. */
-        tabHost.addTab(tab1);
-        tabHost.addTab(tab2);
-        tabHost.addTab(tab3);
-
+        progress = (ProgressBar) findViewById(R.id.progressBar);
+        progress.setMax(max);
 
         button = (Button) findViewById(R.id.button);
         text = (TextView) findViewById(R.id.text);
@@ -62,10 +56,18 @@ public class MainActivity extends AppCompatActivity {
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                num += 0.5;
+
+                if (progressStatus < progress.getMax()) progressStatus += 1;
+                if (progressStatus == progress.getMax()) {
+                    max += 5;
+                    progressStatus = 0;
+                }
+
+                num += adder;
                 total = num;
 
                 text.setText(Double.toString(total));
+                progress.setProgress(progressStatus);
 
                 save_data();
             }
@@ -74,16 +76,24 @@ public class MainActivity extends AppCompatActivity {
 
     public void load_data() {
         try {
-            num = totalCache.readCache();
-            text.setText(Double.toString(num));
+            num = DoubleValueCache.readCache();
+            max = IntegerValueCache.readCache();
+            adder = IntegerValueCache.readCache();
+            progressStatus = IntegerValueCache.readCache();
         } catch (IOException e) {
             e.printStackTrace();
         }
+
+        text.setText(Double.toString(num));
+        progress.setProgress(progressStatus);
     }
 
     public void save_data() {
         try {
-            totalCache.writeCache(num);
+            DoubleValueCache.writeCache(num);
+            IntegerValueCache.writeCache(max);
+            IntegerValueCache.writeCache(adder);
+            IntegerValueCache.writeCache(progressStatus);
         } catch (IOException e) {
             e.printStackTrace();
         }
