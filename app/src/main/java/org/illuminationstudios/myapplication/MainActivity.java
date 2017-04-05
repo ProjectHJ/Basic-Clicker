@@ -1,10 +1,14 @@
 package org.illuminationstudios.myapplication;
 
+import android.app.TabActivity;
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.WindowDecorActionBar;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.Button;
+import android.widget.TabHost;
 import android.widget.TextView;
 
 import com.kosalgeek.android.caching.FileCacher;
@@ -19,10 +23,7 @@ public class MainActivity extends AppCompatActivity {
     double num;
     double total;
 
-    UpdateApp atualizaApp;
-
     final FileCacher<Double> totalCache = new FileCacher<>(MainActivity.this, "values.ahe");
-
 
 
     @Override
@@ -32,9 +33,26 @@ public class MainActivity extends AppCompatActivity {
                 WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_main);
 
-        atualizaApp = new UpdateApp();
-        atualizaApp.setContext(getApplicationContext());
-        atualizaApp.execute("https://github.com/ProjectHJ/Basic-Clicker/blob/master/app/app-release.apk");
+        TabHost tabHost = (TabHost)findViewById(android.R.id.tabhost);
+
+        TabHost.TabSpec tab1 = tabHost.newTabSpec("Upgrades");
+        TabHost.TabSpec tab2 = tabHost.newTabSpec("(WIP)");
+        TabHost.TabSpec tab3 = tabHost.newTabSpec("(WIP)");
+
+        tab1.setIndicator("Tab1");
+        tab1.setContent(new Intent(this,Tab1Activity.class));
+
+        tab2.setIndicator("Tab2");
+        tab2.setContent(new Intent(this,Tab2Activity.class));
+
+        tab3.setIndicator("Tab3");
+        tab3.setContent(new Intent(this,Tab3Activity.class));
+
+        /** Add the tabs  to the TabHost to display. */
+        tabHost.addTab(tab1);
+        tabHost.addTab(tab2);
+        tabHost.addTab(tab3);
+
 
         button = (Button) findViewById(R.id.button);
         text = (TextView) findViewById(R.id.text);
